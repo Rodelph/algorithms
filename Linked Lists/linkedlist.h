@@ -33,11 +33,8 @@ void pushList(linkedlist **_list, int _info) // Complelxity is O(1)
 void insertAfterList(linkedlist* _prevList, int _info)  // Complexity is O(1)
 {
     if(_prevList == nullptr)
-    {
-        std::cout << "The given previous node can not be null !\n";
         return;
-    }
-
+    
     linkedlist* newList = new linkedlist();
     newList->info = _info;
     newList->link = _prevList->link;
@@ -76,11 +73,8 @@ bool searchListNorm(linkedlist* _headList, int _info) // Complexity is O(n)
     while(_headList != nullptr)
     {
         if(_headList->info == _info)
-        {
-            std::cout << "found";
             return true;
-        }
-
+        
         _headList = _headList->link;
     }
     return false;
@@ -90,20 +84,14 @@ bool searchListNorm(linkedlist* _headList, int _info) // Complexity is O(n)
 bool searchListRec(linkedlist* _headList, int _info) // Complexity is O(n)
 {
     if (_headList == nullptr)
-    {
-        std::cout << "Couldn't find the node !\n";
         return false;
-    } 
     else if(_headList->info == _info)
-    {
-        std::cout << "found";
         return true;
-    }
     else
         return searchListRec(_headList->link, _info);
 }
 
-// Deletes a specific node 
+// Deletes a specific node (normal iteration)
 void deleteNode(linkedlist** _headList, int _info) // Complexity O(n)
 {
     linkedlist *tmp = *_headList;
@@ -130,6 +118,89 @@ void deleteNode(linkedlist** _headList, int _info) // Complexity O(n)
 
         delete tmp;
     }
+}
+
+// Deletes a specific node (recursively)
+void deleteNodeRec(linkedlist** _headList, int _info)
+{
+    linkedlist *tmp = *_headList;
+    linkedlist *prev = nullptr;
+
+    if (tmp != nullptr && tmp->info == _info)
+    {
+        *_headList = tmp->link;
+        delete tmp;
+        return;
+    }
+    else if (tmp == nullptr)
+    {
+        delete tmp;
+        return;
+    }
+    else if (tmp != nullptr && tmp->info != _info)
+        deleteNodeRec(_headList, _info);
+}
+
+// finding the length of a linkedlist (normal)
+int countList(linkedlist* _headList)
+{
+    int count = 0;
+    while (_headList != nullptr)
+    {
+        _headList = _headList->link;
+        count++;
+    }
+    return count;
+}
+
+// finding the length of a linkedlit (recursive)
+int countListRec(linkedlist *_headlist) // Complexity O(n)
+{
+    if (_headlist == nullptr)
+        return 0;
+    else if(_headlist != nullptr)
+    {
+        return 1 + countListRec(_headlist->link);
+    }
+}
+
+void deleteNodePos(linkedlist **_headList, int pos)
+{
+    if (*_headList == nullptr)
+        return;
+    
+    linkedlist *temp = *_headList;
+    
+    if(pos == 0)
+    {
+        *_headList = temp->link;
+        delete temp;
+        return;
+    }
+
+    for (int i = 0 ; temp != nullptr && i < pos - 1 ; i++)
+        temp = temp->link;
+
+    linkedlist *next = temp->link->link;
+
+    delete temp->link;
+
+    temp->link = next;
+}
+
+void deleteFullList(linkedlist **_headList)
+{
+    linkedlist *current = *_headList;
+    linkedlist *next = nullptr;
+
+    while(current != nullptr)
+    {
+        next = current->link;
+        delete current;
+        current = next;
+    }
+
+    *_headList = nullptr;
 }
 
 #endif //LINKEDLIST_H
