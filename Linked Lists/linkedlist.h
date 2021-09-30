@@ -121,7 +121,7 @@ void deleteNode(linkedlist** _headList, int _info) // Complexity O(n)
 }
 
 // Deletes a specific node (recursively)
-void deleteNodeRec(linkedlist** _headList, int _info)
+void deleteNodeRec(linkedlist** _headList, int _info) // O(n)
 {
     linkedlist *tmp = *_headList;
     linkedlist *prev = nullptr;
@@ -142,7 +142,7 @@ void deleteNodeRec(linkedlist** _headList, int _info)
 }
 
 // finding the length of a linkedlist (normal)
-int countList(linkedlist* _headList)
+int countList(linkedlist* _headList) // O(n)
 {
     int count = 0;
     while (_headList != nullptr)
@@ -164,7 +164,8 @@ int countListRec(linkedlist *_headlist) // Complexity O(n)
     }
 }
 
-void deleteNodePos(linkedlist **_headList, int pos)
+// Deletes a node based on the pisition n-1
+void deleteNodePos(linkedlist **_headList, int pos) // O(n)
 {
     if (*_headList == nullptr)
         return;
@@ -188,7 +189,8 @@ void deleteNodePos(linkedlist **_headList, int pos)
     temp->link = next;
 }
 
-void deleteFullList(linkedlist **_headList)
+// Deletes the whole linked-list from the memory
+void deleteFullList(linkedlist **_headList) // O(n)
 {
     linkedlist *current = *_headList;
     linkedlist *next = nullptr;
