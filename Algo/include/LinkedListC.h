@@ -27,6 +27,8 @@ class LinkedListC
         void addNode(Type _info);
         void deleteNode(Type _info);
 
+        int countNodes();
+
         void printLL();
 };
 
@@ -36,6 +38,19 @@ LinkedListC<Type>::LinkedListC()
     head = nullptr;
     current = nullptr;
     temp = nullptr;
+    count = 0;
+}
+
+template<class Type>
+int LinkedListC<Type>::countNodes()
+{
+    while (head != nullptr)
+    {
+        count++;
+        head = head->link;
+    }
+
+    return count;
 }
 
 template<class Type>
@@ -92,7 +107,7 @@ void LinkedListC<Type>::printLL()
     current = head;
     while (current != nullptr)
     {
-        std::cout << current->info << " ";
+        std::cout << current->info << "\n";
         current = current->link;
     }
 }
