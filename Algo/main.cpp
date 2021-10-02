@@ -3,13 +3,11 @@
 int main()
 {
     LinkedListC<int> list;
-    list.addNode(20);
-    list.addNode(10);
-    list.addNode(5);
-    list.addNode(2);
-    list.printLL();
+   for (int i = 10 ; i < 100 ; i++)
+        list.addNode(i);
+
     std::cout << "\n";
+
+    list.addNodeAfter(1000, 10);
     list.printLL();
-
-
 }

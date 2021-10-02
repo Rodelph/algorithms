@@ -19,15 +19,23 @@ class LinkedListC
         NodePtr head;
         NodePtr temp;
         int count;
+        bool empty, exist;
+        int countPos;
 
     public:
         LinkedListC();
         //~LinkedListC();
 
         void addNode(Type _info);
+        void addNodeAfter(Type _info, Type _prevInfo);
+        void addAtEnd(Type _info);
         void deleteNode(Type _info);
 
+        Type valueOfNode(int _pos);
+
         int countNodes();
+        bool listIsEmpty();
+        bool searchNode(Type _info);
 
         void printLL();
 };
@@ -39,6 +47,99 @@ LinkedListC<Type>::LinkedListC()
     current = nullptr;
     temp = nullptr;
     count = 0;
+    countPos = 0;
+    empty = false;
+    exist = false;
+}
+
+template<class Type>
+bool LinkedListC<Type>::searchNode(Type _info)
+{
+    current = head;
+    while (current != nullptr)
+    {
+        current = current->link;
+        if (current->info == _info)
+            return true;
+    }
+
+    return false;
+}
+
+template<class Type>
+Type LinkedListC<Type>::valueOfNode(int _pos)
+{
+    if (head == nullptr)
+        std::cout << "The list is empty !\n";
+    
+    if (head->link != nullptr)
+    {
+        current = head;
+        while (current->link != nullptr)
+        {
+            current = current->link;
+            countPos++;
+
+            if (countPos == _pos)
+                return current->info;
+        }
+    }
+}
+
+template<class Type>
+void LinkedListC<Type>::addAtEnd(Type _info)
+{
+    NodePtr newNode = new node;
+    newNode->info = _info;
+    newNode->link = nullptr;
+
+    if (head == nullptr)
+    {
+        std::cout << "The list is empty !\n";
+        delete newNode;
+    }
+
+    if (head->link != nullptr)
+    {
+        current = head;
+
+        while (current->link != nullptr)
+            current = current->link;
+        
+        if (current->link == nullptr)
+            current->link = newNode;
+    }
+}
+
+template<class Type>
+void LinkedListC<Type>::addNodeAfter(Type _info, Type _prevInfo)
+{
+    NodePtr newNode = new node;
+    newNode->info = _info;
+    newNode->link = nullptr;
+
+    if (head == nullptr)
+    {
+        std::cout << "The node that you want to insert after does not exist !\n";
+        delete newNode;
+        return;
+    }
+    
+    if (head->link != nullptr)
+    {
+        current = head;
+
+        while (current->link != nullptr)
+        {
+            if (current->info == _prevInfo)
+            {
+                newNode->link = current->link;
+                current->link = newNode;
+            }
+
+            current = current->link;
+        }
+    }
 }
 
 template<class Type>
@@ -51,6 +152,15 @@ int LinkedListC<Type>::countNodes()
     }
 
     return count;
+}
+
+template<class Type>
+bool LinkedListC<Type>::listIsEmpty()
+{
+    if (head == nullptr)
+        empty = true;
+    
+    return empty;
 }
 
 template<class Type>
