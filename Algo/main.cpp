@@ -9,5 +9,4 @@ int main()
     std::cout << "\n";
 
     list.addNodeAfter(1000, 10);
-    list.printLL();
 }

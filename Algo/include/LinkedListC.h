@@ -14,6 +14,7 @@ class LinkedListC
         }*NodePtr;
 
         NodePtr current;
+        NodePtr next;
 
     protected:
         NodePtr head;
@@ -24,12 +25,13 @@ class LinkedListC
 
     public:
         LinkedListC();
-        //~LinkedListC();
+        ~LinkedListC();
 
         void addNode(Type _info);
         void addNodeAfter(Type _info, Type _prevInfo);
         void addAtEnd(Type _info);
         void deleteNode(Type _info);
+        void deleteList();
 
         Type valueOfNode(int _pos);
 
@@ -41,10 +43,34 @@ class LinkedListC
 };
 
 template<class Type>
+LinkedListC<Type>::~LinkedListC() { LinkedListC<Type>::deleteList(); }
+
+template<class Type>
+void LinkedListC<Type>::deleteList()
+{
+
+    if (head != nullptr)
+    {
+        current = head;
+        while (current != nullptr)
+        {
+            next = current->link;
+            delete current;
+            current = next;
+        }
+    }
+    else
+        std::cout << "The list is inexistant !\n";
+
+    head = nullptr;
+}
+
+template<class Type>
 LinkedListC<Type>::LinkedListC()
 {
     head = nullptr;
     current = nullptr;
+    next = nullptr;
     temp = nullptr;
     count = 0;
     countPos = 0;
@@ -124,6 +150,8 @@ void LinkedListC<Type>::addNodeAfter(Type _info, Type _prevInfo)
         delete newNode;
         return;
     }
+
+
     
     if (head->link != nullptr)
     {
