@@ -1,12 +1,10 @@
-#include "LinkedListC.h"
+#include "DoubleLinkedList.h"
 
 int main()
 {
-    LinkedListC<int> list;
-   for (int i = 10 ; i < 100 ; i++)
-        list.addNode(i);
-
-    std::cout << "\n";
-
-    list.addNodeAfter(1000, 10);
+	DoubleLinkedList<int> kek;
+	kek.addNode(30);
+	kek.addNode(20);
+	kek.addNode(10);
+	kek.prinktDLL();
 }

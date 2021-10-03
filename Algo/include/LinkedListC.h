@@ -9,9 +9,11 @@ class LinkedListC
     private:
         typedef struct node
         {
+
             Type info;
             node* link;
-        }*NodePtr;
+
+        }* NodePtr;
 
         NodePtr current;
         NodePtr next;
@@ -19,9 +21,9 @@ class LinkedListC
     protected:
         NodePtr head;
         NodePtr temp;
-        int count;
-        bool empty, exist;
-        int countPos;
+
+        int count, countPo;
+        bool empty;
 
     public:
         LinkedListC();
@@ -48,7 +50,6 @@ LinkedListC<Type>::~LinkedListC() { LinkedListC<Type>::deleteList(); }
 template<class Type>
 void LinkedListC<Type>::deleteList()
 {
-
     if (head != nullptr)
     {
         current = head;
@@ -72,10 +73,10 @@ LinkedListC<Type>::LinkedListC()
     current = nullptr;
     next = nullptr;
     temp = nullptr;
+  
     count = 0;
     countPos = 0;
     empty = false;
-    exist = false;
 }
 
 template<class Type>
@@ -150,8 +151,6 @@ void LinkedListC<Type>::addNodeAfter(Type _info, Type _prevInfo)
         delete newNode;
         return;
     }
-
-
     
     if (head->link != nullptr)
     {
