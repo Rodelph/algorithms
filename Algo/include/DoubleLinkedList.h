@@ -2,6 +2,7 @@
 #define _DOUBLELINKEDLIST_
 
 #include <iostream>
+#include <list>
 
 template<class Type>
 class DoubleLinkedList
@@ -55,25 +56,22 @@ void DoubleLinkedList<Type>::addNode(Type _info)
 {
 	NodePtr newNode = new node;
 	newNode->info = _info;
-	newNode->linkB = nullptr;
-	newNode->linkF = end;
+	newNode->linkB = head;
+	newNode->linkF = nullptr;
 
 	if (head != nullptr)
 	{
 		current = head;
-		while (current->linkF != nullptr)
-			current = current->linkF;
+
+        while (current->linkF != nullptr)
+            current = current->linkF;
 
 		current->linkF = newNode;
-
-		newNode->linkB = current;
-		
-		//end->linkB = newNode;
+		newNode->linkF = end;
 	}
 	else
 	{
 		head = newNode;
-		newNode = end;
 	}
 }
 
